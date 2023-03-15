@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function App() {
   const [text, setText] = useState("");
-  console.log(text);
+  const [characters, setCharacters] = useState(0);
+  useEffect(() => {
+    setCharacters(text.length);
+  }, [text]);
   return (
     <div className="container">
       <h1>Word Counter</h1>
@@ -12,7 +15,7 @@ function App() {
       />
       <div className="output row">
         <div>
-          Characters: <span id="characterCount">0</span>
+          Characters: <span id="characterCount">{characters}</span>
         </div>
         <div>
           Words: <span id="wordCount">0</span>
