@@ -5,6 +5,7 @@ function App() {
   const [words, setWords] = useState(0);
   const [sentences, setSentences] = useState(0);
   const [paragraph, setParagraph] = useState(0);
+  const [showLable, setShowLable] = useState(false);
 
   function count(text, pattern) {
     const matches = text.match(pattern);
@@ -20,14 +21,19 @@ function App() {
 
   const handleCapCase = () => {
     const words = text.split(" ") || [];
-
     const capCase = words
       .map((word) => {
-        console.log("tete", word[0]);
-        return word[0].toUpperCase() + word.substring(1);
+        return word[0].toUpperCase() + word.substring(1).toLowerCase();
       })
       .join(" ");
     setText(capCase);
+  };
+  const handleCopyBtn = () => {
+    navigator.clipboard.writeText(text);
+    setShowLable(true);
+    setTimeout(() => {
+      setShowLable(false);
+    }, 2000);
   };
 
   return (
@@ -38,6 +44,12 @@ function App() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
+      <div className="copy-wrap">
+        <button className="copy-btn" onClick={handleCopyBtn}>
+          Copy Text
+        </button>
+        {showLable && <span className="copyText">Copied!</span>}
+      </div>
       <div className="button-wrapper">
         <h4>Case converter: </h4>
         <button className="btn-wc" onClick={() => setText(text.toUpperCase())}>
@@ -46,7 +58,7 @@ function App() {
         <button className="btn-wc" onClick={() => setText(text.toLowerCase())}>
           Lower Case
         </button>
-        <button className="btn-wc" onClick={() => handleCapCase()}>
+        <button className="btn-wc" onClick={handleCapCase}>
           Capitalized Case
         </button>
       </div>
