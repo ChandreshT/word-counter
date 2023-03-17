@@ -72,3 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # word-counter
 
 React app to count the number of words entered
+
+# Case Converter
+
+The case of entered text can be changed to upper, lower, or capital case. We can also copy the text using the copy button.
