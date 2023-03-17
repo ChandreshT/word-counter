@@ -17,6 +17,19 @@ function App() {
     setSentences(count(text, /[.?!]\s/g));
     setParagraph(count(text, /\n/g));
   }, [text]);
+
+  const handleCapCase = () => {
+    const words = text.split(" ") || [];
+
+    const capCase = words
+      .map((word) => {
+        console.log("tete", word[0]);
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(" ");
+    setText(capCase);
+  };
+
   return (
     <div className="container">
       <h1>Word Counter</h1>
@@ -25,6 +38,18 @@ function App() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
+      <div className="button-wrapper">
+        <h4>Case converter: </h4>
+        <button className="btn-wc" onClick={() => setText(text.toUpperCase())}>
+          Upper Case
+        </button>
+        <button className="btn-wc" onClick={() => setText(text.toLowerCase())}>
+          Lower Case
+        </button>
+        <button className="btn-wc" onClick={() => handleCapCase()}>
+          Capitalized Case
+        </button>
+      </div>
       <div className="output row">
         <div>
           Characters: <span id="characterCount">{characters}</span>
